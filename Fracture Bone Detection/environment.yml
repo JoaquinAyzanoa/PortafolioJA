@@ -1,0 +1,22 @@
+name: dl-pytorch
+channels:
+  - conda-forge
+  - defaults
+  - pytorch
+dependencies:
+  - python=3.11
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - pytorch==2.0.1
+  - torchvision==0.15.*
+  - cuda100
+  - pip
+  - scikit-image
+  - scikit-learn
+  - jupyterlab
+  - tqdm>=4.36
+  - seaborn
+  - pip:
+    - onnxruntime
