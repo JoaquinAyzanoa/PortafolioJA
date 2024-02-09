@@ -6,3 +6,15 @@
 
 # Compiled Pre-Linked Libraries
 *.plx
+
+# Images
+*.jpg
+*.jpeg
+*.png
+*.gif
+
+# Data formats
+*.txt
+*.csv
+*.xlsx
+*.xls
