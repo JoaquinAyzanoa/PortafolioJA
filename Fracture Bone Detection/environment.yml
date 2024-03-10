@@ -18,5 +18,10 @@ dependencies:
   - jupyterlab
   - tqdm>=4.36
   - seaborn
+  - fastapi
+  - streamlit
+  - Pillow
+  - uvicorn
+  - python-multipart
   - pip:
     - onnxruntime

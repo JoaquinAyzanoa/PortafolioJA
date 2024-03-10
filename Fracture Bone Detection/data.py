@@ -68,14 +68,15 @@ class ChallengeDataset(Dataset):
 
         # Apply transformations
         image = self.transform(image)
+        
+
         label = torch.tensor(label, dtype=torch.float)
 
         device = 'cuda:0' if torch.cuda.is_available() else 'cpu'
-
         image = image.to(device)
         #print(label)
         label = label.to(device)
-
+        
         return image, label
     
 

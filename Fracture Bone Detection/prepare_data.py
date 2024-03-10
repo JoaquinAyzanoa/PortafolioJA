@@ -3,7 +3,8 @@ import os
 import pandas as pd
 
 def prepare_data(root, mode):
-    file_dataname = f'./data/{mode}/data_{mode}.csv'
+    file_dataname = os.path.join(root, mode)
+    file_dataname = file_dataname + f'/data_{mode}.csv'
     if os.path.exists(file_dataname):
           df = pd.read_csv(file_dataname, delimiter=';')
           print(f'data_{mode}.csv' +' already exists')

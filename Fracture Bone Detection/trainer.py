@@ -64,6 +64,7 @@ class Trainer:
             x, y = x.to(self._device), y.to(self._device)
 
         # Forward pass
+        
         outputs = self._model(x)
         loss = self._crit(outputs, y)
 

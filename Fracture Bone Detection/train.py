@@ -14,9 +14,9 @@ print(device)
 # load the data from the csv file and perform a train-test-split
 # this can be accomplished using the already imported pandas and sklearn.model_selection modules
 
-train_data, _ = prepare_data('./data', 'train')
+train_data, _ = prepare_data('.\data', 'train')
 #print(train_data)
-val_data, _ = prepare_data('./data', 'valid')
+val_data, _ = prepare_data('.\data', 'valid')
 #data = pd.read_csv("data.csv", delimiter=';')  # Update with your actual file path
 #train_data, val_data = train_test_split(data, test_size=0.2, random_state=42)
 
