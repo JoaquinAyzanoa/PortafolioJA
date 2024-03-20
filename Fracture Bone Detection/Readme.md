@@ -13,7 +13,8 @@
 By leveraging advanced computer vision techniques, the aim is to accurately identify and localize fractures within X-ray scans to aid medical professionals in their diagnosis and treatment planning processes. Additionally, the project will utilize FastAPI and Streamlit for deployment, providing an intuitive interface for users to interact with the trained models effectively. Through this integration of deep learning technology and user-friendly interfaces, the project seeks to enhance the efficiency and accuracy of bone fracture detection in medical imaging, ultimately improving patient care and outcomes.
 
 ## Datasources
-### Datasource1: Stock of motor vehicles by vehicle type in Nordrhein-Westfalen
+### Datasource1: Bone Fracture Detection: Computer Vision Project
+
 * Metadata URL: https://www.kaggle.com/datasets/pkdarabi/bone-fracture-detection-computer-vision-project
 * Data URL: https://www.kaggle.com/datasets/pkdarabi/bone-fracture-detection-computer-vision-project/download?datasetVersionNumber=1
 * Data Type: CSV, JPG
