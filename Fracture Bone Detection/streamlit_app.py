@@ -2,8 +2,10 @@ import os
 import requests
 import streamlit as st
 from PIL import Image
-
-
+import matplotlib.pyplot as plt
+import base64
+import io
+import numpy as np
 
 if __name__ == '__main__':
     st.title("Fracture Bone Detection")
@@ -30,6 +32,20 @@ if __name__ == '__main__':
             if response.status_code == 200:
                 result = response.json()
                 st.write(f"Prediction: {result['result']}")
+                #st.write(f"Segmented image: {result['segmented']}")
+
+                segmented_overlay_base64 = result.get('segmented', None)
+                if segmented_overlay_base64:
+                    # Convert base64 to bytes
+                    segmented_overlay_bytes = base64.b64decode(segmented_overlay_base64)
+                    # Convert bytes to numpy array
+                    segmented_overlay_array = np.array(Image.open(io.BytesIO(segmented_overlay_bytes)))
+                    # Plot the segmented overlay image
+                    fig, ax = plt.subplots()
+                    ax.imshow(segmented_overlay_array)
+                    ax.axis('off')
+                    st.pyplot(fig)
+
             else:
                 st.write(f"Error predicting image. Status code: {response.status_code}")
 
