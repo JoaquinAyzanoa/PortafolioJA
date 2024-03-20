@@ -19,7 +19,7 @@ import torchvision as tv
 
 #import YOLO model
 from ultralytics import YOLO
-YOLOmodel = YOLO('./YoloV8 Model/runs/detect/weights/best.pt')
+model = YOLO('./YoloV8/runs/detect/weights/best.pt')
 
 app = FastAPI()
 
@@ -44,7 +44,7 @@ transformation = tv.transforms.Compose([
 
 
 
-def prediction(image_path):
+""" def prediction(image_path):
     image = imread(image_path)
     if len(image.shape) == 2:
         image = gray2rgb(image)
@@ -56,28 +56,45 @@ def prediction(image_path):
     output = output.detach().cpu().numpy()[0]
     output = output/np.sum(output)
     label = fracture_names[np.argmax(output)]
+    return label """
 
-    YOLOresults = YOLOmodel(image)
-    # Process results list
-    for result in YOLOresults:
-        boxes = result.boxes  # Boxes object for bounding box outputs
-        masks = result.masks  # Masks object for segmentation masks outputs
-        keypoints = result.keypoints  # Keypoints object for pose outputs
-        probs = result.probs  # Probs object for classification outputs
-        #result.show()  # display to screen
-        result.save(filename='./result_yolo/result.jpg')  # save to disk
-
-    return label , YOLOresults
-
+def prediction(image_path):
+    image = imread(image_path)
+    if len(image.shape) == 2:
+        image = gray2rgb(image)
+    x = transformation(image)
+    x = x.resize_(1,3,512, 512)
+    x = x.to(device)
+    with t.no_grad():
+        output, segmentation_output = resnet_model(x)
+    segmentation_map = segmentation_output.detach().cpu().numpy()[0]
+    output = output.detach().cpu().numpy()[0]
+    output = output/np.sum(output)
+    label = fracture_names[np.argmax(output)]
+    segmentation_map = segmentation_map[np.argmax(output)]
+    return label, segmentation_map, image
 
 @app.post('/predict')
 async def predict_endpoint(img: UploadFile = (...)):
     img_path = os.path.join(os.getcwd(), 'uploaded_images', img.filename)
-    label, YOLOresults = prediction(img_path)
+    label, segmentation_map, input_image_np = prediction(img_path)
 
-    image = imread('./result_yolo/result.jpg')
+    height = input_image_np.shape[0]
+    width = input_image_np.shape[1]
+    segmentation_map_resized = resize(segmentation_map, 
+                                    (height, width), 
+                                    mode='constant', anti_aliasing=True)
+    threshold = 0.5  # You can adjust the threshold as needed
+    binary_mask = segmentation_map_resized > threshold
+    input_image_rgba = np.concatenate([input_image_np, np.ones((*input_image_np.shape[:2], 1), dtype=np.uint8) * 255], axis=-1)
+    # Create a mask for the segmented regions
+    segmented_overlay = np.zeros_like(input_image_rgba)
+    segmented_overlay[binary_mask] = [10, 255, 10, 200]  # Set segmented regions to red with full opacity
+
+    # Overlay the segmented regions on the original image
+    overlay_image = np.maximum(input_image_rgba, segmented_overlay)
     # Convert the NumPy array (segmented_overlay) to a PIL Image
-    overlay_image_pil = Image.fromarray(image)
+    overlay_image_pil = Image.fromarray(overlay_image)
     # Create a buffer to hold the image data
     buffered = io.BytesIO()
     # Save the PIL Image to the buffer in PNG format
