@@ -18,3 +18,5 @@
 *.csv
 *.xlsx
 *.xls
+*.ckp
+*.pt
