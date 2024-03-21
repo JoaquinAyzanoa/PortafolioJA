@@ -38,7 +38,7 @@ trainer = Trainer(model=resnet_model, crit=criterion, optim=optimizer,
                   train_dl=train_dataloader, val_test_dl=val_dataloader,
                   cuda=True, early_stopping_patience=25)
 
-# go, go, go... call fit on trainer
+
 #trainer.restore_checkpoint(79)
 res = trainer.fit(epochs=200)
 
