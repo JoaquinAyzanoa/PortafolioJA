@@ -32,7 +32,7 @@ The aim of creating this dataset is to accelerate the development of computer vi
 ## Final Report
 The final report can be found [here][i1]
 
-[i1]: https://github.com/JoaquinAyzanoa/PortafolioJA/blob/2a77af4b866ba081dfbaa0107984deb4da43e028/Fracture%20Bone%20Detection/BFD%20presentation.pptx
+[i1]: https://github.com/JoaquinAyzanoa/PortafolioJA/blob/eb44bedd52fba449bc1b21694dffd6059f9a7cce/Fracture%20Bone%20Detection/BFD%20Report.pdf
 
 
 ## License
