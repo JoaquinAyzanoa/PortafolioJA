@@ -1,0 +1,12 @@
+name: openai_gym
+
+dependencies:
+  - python=3.8
+  - tensorflow==2.3.0
+  - pip
+  - pip:
+    - gym
+    - keras
+    - keras-rl2
+    - gym[classic_control]
+    - pyglet
